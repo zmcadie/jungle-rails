@@ -1,0 +1,15 @@
+<article class="category">
+  <header>
+    <%= link_to category do %>
+      <h4><%= category.name %></h4>
+    <% end %>
+  </header>
+  <p class="name">
+    <%= category.name %>
+  </p>
+  <footer class="actions">
+    <%= link_to category, class: 'btn btn-default pull-right' do %>
+      Details &raquo;
+    <% end %>
+  </footer>
+</article>
