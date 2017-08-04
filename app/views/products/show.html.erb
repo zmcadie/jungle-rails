@@ -26,6 +26,20 @@
       </div>
     </div>
 
+    <div class="row">
+
+      <% @product.reviews.each do |review| %>
+        <% @user = User.find(review.user_id) %>
+        <div>
+          <div>User: <%= @user.email %></div>
+          <div>Rating: <%= review.rating %></div>
+          <% if review.description %>
+            <div>Description: <%= review.description %></div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
   </article>
 
 </section>
