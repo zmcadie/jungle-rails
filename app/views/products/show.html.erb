@@ -51,6 +51,9 @@
           <% if review.description %>
             <div>Description: <%= review.description %></div>
           <% end %>
+          <% if current_user && current_user.email == @user.email %>
+            <%= button_to 'Delete', [@product, review], method: :delete %>
+          <% end %>
           <br>
         </div>
       <% end %>
