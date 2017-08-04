@@ -37,8 +37,7 @@
                            <span>| 3 <%= f.radio_button :rating, '3', checked: true %></span>
                            <span>| 4 <%= f.radio_button :rating, '4' %></span>
                            <span>| 5 <%= f.radio_button :rating, '5' %></span></div>
-        <div>Review: </div><div><%= f.text_field :description %></div>
-        <div><%= f.submit "Review" %></div>
+        <div>Review: </div><div><%= f.text_field :description %><%= f.submit "Review" %></div>
         <% end %>
       </div>
     <% end %>
@@ -52,6 +51,7 @@
           <% if review.description %>
             <div>Description: <%= review.description %></div>
           <% end %>
+          <br>
         </div>
       <% end %>
     </div>
