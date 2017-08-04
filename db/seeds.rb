@@ -140,21 +140,24 @@ User.create!({
   first_name: 'anon',
   last_name: 'e. mous',
   email: 'none@none.com',
-  password_digest: 'password'
+  password: 'password',
+  password_confirmation: 'password'
 })
 
 User.create!({
   first_name: 'tester',
   last_name: 'testington',
   email: 'test@test.com',
-  password_digest: 'password'
+  password: 'password',
+  password_confirmation: 'password'
 })
 
 User.create!({
   first_name: 'fake',
   last_name: 'name',
   email: 'fake@email.com',
-  password_digest: 'password'
+  password: 'password',
+  password_confirmation: 'password'
 })
 
 ## REVIEWS
