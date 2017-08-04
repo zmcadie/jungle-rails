@@ -10,6 +10,7 @@ class OrdersController < ApplicationController
 
     if order.valid?
       empty_cart!
+      UserMailer.email_receipt(order).deliver_later
       redirect_to order, notice: 'Your Order has been placed.'
     else
       redirect_to cart_path, error: order.errors.full_messages.first
@@ -24,6 +25,13 @@ class OrdersController < ApplicationController
   def empty_cart!
     # empty hash means no products in cart :)
     update_cart({})
+  end
+
+  def send_receipt(order)
+    @order = order
+    respond_to do
+      UserMailer.email_receipt(@order).deliver_later
+    end
   end
 
   def perform_stripe_charge
