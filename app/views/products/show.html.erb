@@ -27,7 +27,7 @@
     </div>
 
     <div class="row">
-
+    <h4>Reviews</h4>
       <% @product.reviews.each do |review| %>
         <% @user = User.find(review.user_id) %>
         <div>
