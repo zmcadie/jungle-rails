@@ -132,13 +132,45 @@ cat3.products.create!({
   price: 2_483.75
 })
 
+## USERS
+
+User.destroy_all
+
+User.create!({
+  first_name: 'anon',
+  last_name: 'e. mous',
+  email: 'none@none.com',
+  password_digest: 'password'
+})
+
+User.create!({
+  first_name: 'tester',
+  last_name: 'testington',
+  email: 'test@test.com',
+  password_digest: 'password'
+})
+
+User.create!({
+  first_name: 'fake',
+  last_name: 'name',
+  email: 'fake@email.com',
+  password_digest: 'password'
+})
+
+## REVIEWS
+
+puts "Re-creating reviews..."
+
+Review.destroy_all
+
 prod1 = Product.find(1)
 prod2 = Product.find(2)
 prod3 = Product.find(3)
 
 prod3.reviews.create!({
   user_id: 1,
-  rating: 3
+  rating: 3,
+  description: 'doesn\'t keep the sun out of my eyes at all! looks stylish though...'
 })
 
 prod3.reviews.create!({
