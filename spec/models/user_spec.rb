@@ -99,31 +99,23 @@ RSpec.describe User, type: :model do
   end
 
   describe '.authenticate_with_credentials' do
+    User.find_by_email('user2@user.com').destroy
+    User.create!(first_name: 'test',
+                         last_name: 'testington',
+                         email: 'user2@user.com',
+                         password: 'password',
+                         password_confirmation: 'password')
     it 'should be valid when passed valid fields' do
-      @user = User.create!(first_name: 'test',
-                   last_name: 'testington',
-                   email: 'user@user.com',
-                   password: 'password',
-                   password_confirmation: 'password')
-      expect(@user.authenticate_with_credentials('user@user.com', 'password')).to eql @user
+      @user = User.find_by_email('user2@user.com')
+      expect(User.authenticate_with_credentials('user2@user.com', 'password')).to eql @user
     end
 
     it 'should not be valid if given wrong password' do
-      @user = User.create!(first_name: 'test',
-                   last_name: 'testington',
-                   email: 'user@user.com',
-                   password: 'password',
-                   password_confirmation: 'password')
-      expect(@user.authenticate_with_credentials('user@user.com', 'notpassword')).to eql nil
+      expect(User.authenticate_with_credentials('user2@user.com', 'notpassword')).to eql nil
     end
 
     it 'should not be valid if given wrong email' do
-      @user = User.create!(first_name: 'test',
-                   last_name: 'testington',
-                   email: 'user@user.com',
-                   password: 'password',
-                   password_confirmation: 'password')
-      expect(@user.authenticate_with_credentials('notuser@user.com', 'password')).to eql nil
+      expect(User.authenticate_with_credentials('notuser2@user.com', 'password')).to eql nil
     end
   end
 end
