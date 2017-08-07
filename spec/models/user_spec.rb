@@ -17,6 +17,7 @@ RSpec.describe User, type: :model do
                      password: 'password',
                      password_confirmation: 'password')
     expect(@user).to_not be_valid
+    expect(@user.errors.full_messages).to eql ["First name can't be blank"]
   end
 
   it 'should not be valid without last_name' do
@@ -26,5 +27,6 @@ RSpec.describe User, type: :model do
                      password: 'password',
                      password_confirmation: 'password')
     expect(@user).to_not be_valid
+    expect(@user.errors.full_messages).to eql ["Last name can't be blank"]
   end
 end
