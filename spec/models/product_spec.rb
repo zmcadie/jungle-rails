@@ -25,6 +25,7 @@ RSpec.describe Product, type: :model do
                                         price: nil,
                                         quantity: 3)
       expect(@product).to_not be_valid
+      expect(@product.errors.full_messages).to eql ["Price cents is not a number", "Price is not a number", "Price can't be blank"]
     end
 
     it 'should not be valid without quantity' do
@@ -33,6 +34,7 @@ RSpec.describe Product, type: :model do
                                         price: 1000,
                                         quantity: nil)
       expect(@product).to_not be_valid
+      expect(@product.errors.full_messages).to eql ["Quantity can't be blank"]
     end
 
     it 'should not be valid without category' do
@@ -41,6 +43,7 @@ RSpec.describe Product, type: :model do
                              quantity: 3,
                              category: nil)
       expect(@product).to_not be_valid
+      expect(@product.errors.full_messages).to eql ["Category can't be blank"]
     end
   end
 end
