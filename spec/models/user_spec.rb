@@ -117,5 +117,10 @@ RSpec.describe User, type: :model do
     it 'should not be valid if given wrong email' do
       expect(User.authenticate_with_credentials('notuser2@user.com', 'password')).to eql nil
     end
+
+    it 'should be valid if given valid email (even with surrounding spaces)' do
+      @user = User.find_by_email('user2@user.com')
+      expect(User.authenticate_with_credentials('  user2@user.com', 'password')).to eql @user
+    end
   end
 end
