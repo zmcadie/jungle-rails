@@ -70,7 +70,7 @@ RSpec.describe User, type: :model do
     expect(@user.errors.full_messages).to eql ["Password confirmation doesn't match Password"]
   end
 
-  it 'should not be valid with duplicate email' do
+  it 'should not be valid with duplicate email (case insensitive)' do
     User.create!(first_name: 'test',
                  last_name: 'testington',
                  email: 'user@user.com',
@@ -78,7 +78,7 @@ RSpec.describe User, type: :model do
                  password_confirmation: 'password')
     @user = User.new(first_name: 'test',
                      last_name: 'testington',
-                     email: 'user@user.com',
+                     email: 'USER@USER.COM',
                      password: 'password',
                      password_confirmation: 'password')
 
