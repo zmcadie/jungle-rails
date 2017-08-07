@@ -84,12 +84,12 @@ RSpec.describe User, type: :model do
     it 'should not be valid with duplicate email (case insensitive)' do
       User.create!(first_name: 'test',
                    last_name: 'testington',
-                   email: 'user@user.com',
+                   email: 'user1@user.com',
                    password: 'password',
                    password_confirmation: 'password')
       @user = User.new(first_name: 'test',
                        last_name: 'testington',
-                       email: 'USER@USER.COM',
+                       email: 'USER1@USER.COM',
                        password: 'password',
                        password_confirmation: 'password')
 
@@ -106,6 +106,15 @@ RSpec.describe User, type: :model do
                    password: 'password',
                    password_confirmation: 'password')
       expect(@user.authenticate_with_credentials('user@user.com', 'password')).to eql @user
+    end
+
+    it 'should not be valid if given wrong password' do
+      @user = User.create!(first_name: 'test',
+                   last_name: 'testington',
+                   email: 'user@user.com',
+                   password: 'password',
+                   password_confirmation: 'password')
+      expect(@user.authenticate_with_credentials('user@user.com', 'notpassword')).to eql nil
     end
   end
 end
