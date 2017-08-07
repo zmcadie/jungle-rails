@@ -47,7 +47,7 @@ RSpec.describe User, type: :model do
                      password: nil,
                      password_confirmation: 'password')
     expect(@user).to_not be_valid
-    expect(@user.errors.full_messages).to eql ["Password can't be blank", "Password can't be blank"]
+    expect(@user.errors.full_messages).to eql ["Password can't be blank", "Password can't be blank", "Password is too short (minimum is 8 characters)"]
   end
 
   it 'should not be valid without password' do
@@ -68,6 +68,16 @@ RSpec.describe User, type: :model do
                      password_confirmation: 'passphrase')
     expect(@user).to_not be_valid
     expect(@user.errors.full_messages).to eql ["Password confirmation doesn't match Password"]
+  end
+
+  it 'should not be valid if password length is less than 8 characters' do
+    @user = User.new(first_name: 'test',
+                     last_name: 'testington',
+                     email: 'user@user.com',
+                     password: 'pass',
+                     password_confirmation: 'pass')
+    expect(@user).to_not be_valid
+    expect(@user.errors.full_messages).to eql ["Password is too short (minimum is 8 characters)"]
   end
 
   it 'should not be valid with duplicate email (case insensitive)' do
