@@ -116,5 +116,14 @@ RSpec.describe User, type: :model do
                    password_confirmation: 'password')
       expect(@user.authenticate_with_credentials('user@user.com', 'notpassword')).to eql nil
     end
+
+    it 'should not be valid if given wrong email' do
+      @user = User.create!(first_name: 'test',
+                   last_name: 'testington',
+                   email: 'user@user.com',
+                   password: 'password',
+                   password_confirmation: 'password')
+      expect(@user.authenticate_with_credentials('notuser@user.com', 'password')).to eql nil
+    end
   end
 end
