@@ -27,13 +27,6 @@ class OrdersController < ApplicationController
     update_cart({})
   end
 
-  def send_receipt(order)
-    @order = order
-    respond_to do
-      UserMailer.email_receipt(@order).deliver_later
-    end
-  end
-
   def perform_stripe_charge
     Stripe::Charge.create(
       source:      params[:stripeToken],
