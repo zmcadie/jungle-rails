@@ -16,6 +16,7 @@ RSpec.describe Product, type: :model do
                                         price: 1000,
                                         quantity: 3)
       expect(@product).to_not be_valid
+      expect(@product.errors.full_messages).to eql ["Name can't be blank"]
     end
 
     it 'should not be valid without price' do
