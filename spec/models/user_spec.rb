@@ -99,14 +99,14 @@ RSpec.describe User, type: :model do
   end
 
   describe '.authenticate_with_credentials' do
-    User.find_by_email('user2@user.com').destroy
+    User.find_by_email('user2@USER.com').destroy
     User.create!(first_name: 'test',
                          last_name: 'testington',
-                         email: 'user2@user.com',
+                         email: 'user2@USER.com',
                          password: 'password',
                          password_confirmation: 'password')
     it 'should be valid when passed valid fields' do
-      @user = User.find_by_email('user2@user.com')
+      @user = User.find_by_email('user2@USER.com')
       expect(User.authenticate_with_credentials('user2@user.com', 'password')).to eql @user
     end
 
@@ -119,8 +119,13 @@ RSpec.describe User, type: :model do
     end
 
     it 'should be valid if given valid email (even with surrounding spaces)' do
-      @user = User.find_by_email('user2@user.com')
+      @user = User.find_by_email('user2@USER.com')
       expect(User.authenticate_with_credentials('  user2@user.com', 'password')).to eql @user
+    end
+
+    it 'should be valid if given valid email (case insensitive)' do
+      @user = User.find_by_email('user2@USER.com')
+      expect(User.authenticate_with_credentials('USER2@user.com', 'password')).to eql @user
     end
   end
 end
