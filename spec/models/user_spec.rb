@@ -58,7 +58,17 @@ RSpec.describe User, type: :model do
                      password_confirmation: nil)
     expect(@user).to_not be_valid
     expect(@user.errors.full_messages).to eql ["Password confirmation can't be blank"]
-    end
+  end
+
+  it 'should not be valid if password and password_confirmation don\'t match' do
+    @user = User.new(first_name: 'test',
+                     last_name: 'testington',
+                     email: 'user@user.com',
+                     password: 'password',
+                     password_confirmation: 'passphrase')
+    expect(@user).to_not be_valid
+    expect(@user.errors.full_messages).to eql ["Password confirmation doesn't match Password"]
+  end
 
   it 'should not be valid with duplicate email' do
     User.create!(first_name: 'test',
