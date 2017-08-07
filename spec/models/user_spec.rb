@@ -29,4 +29,30 @@ RSpec.describe User, type: :model do
     expect(@user).to_not be_valid
     expect(@user.errors.full_messages).to eql ["Last name can't be blank"]
   end
+
+  it 'should not be valid without email' do
+    @user = User.new(first_name: 'test',
+                     last_name: 'testington',
+                     email: nil,
+                     password: 'password',
+                     password_confirmation: 'password')
+    expect(@user).to_not be_valid
+    expect(@user.errors.full_messages).to eql ["Email can't be blank"]
+  end
+
+  it 'should not be valid with duplicate email' do
+    User.create!(first_name: 'test',
+                 last_name: 'testington',
+                 email: 'user@user.com',
+                 password: 'password',
+                 password_confirmation: 'password')
+    @user = User.new(first_name: 'test',
+                     last_name: 'testington',
+                     email: 'user@user.com',
+                     password: 'password',
+                     password_confirmation: 'password')
+
+    expect(@user).to_not be_valid
+    expect(@user.errors.full_messages).to eql ["Email has already been taken"]
+  end
 end
